@@ -1,0 +1,26 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+@important  
+- **ToDo 리스트 기반 실행 필수**: 모든 작업은 `tasks.mdc`에 등록 후 진행  
+- **매 실행마다 ToDo 체크, 진행 상황 `done-td{nn}-work-description.md` 기록 필수**  
+- **매 단계에서 test code를 통해 진행의 안정성을 보장해야 함.**
+- **트러블슈팅은 `done-ts{nn}-trouble-description.`에 반드시 기록**  
+- **모든 문서(`requirements.mdc`, `architecture.mdc`, `tasks.mdc`, `test.mdc`)는 항상 최신화**  
+- **커밋 메시지는 진행 상황 및 변경 내용을 포함 (e.g., `feat: 로그인 기능 구현`)**  하여 적절한 단위로 커밋.
+- 이 원칙을 어길 경우, 작업 중단 및 회고 후 재진행
+
+---
+
+## 🌱 추가 팁
+
+- `workflow.mdc`는 **진행 흐름의 큰 틀**  
+- `important.mdc`는 **작업 시 반드시 지켜야 할 규칙**  
+- 두 개를 함께 사용해야 강력한 프로젝트 관리 가능!
+
+---
+
+반드시 컴포넌트는 Atomic 한 단위로 재사용 가능하게 작성하며 type, utils, style 등을 분리하여 작성하여 코드의 가독성과 품질을 유지하라.
