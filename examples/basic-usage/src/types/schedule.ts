@@ -1,10 +1,9 @@
 export interface Schedule {
   id: string;
   title: string;
-  content: string;
-  scheduledAt: string;
-  createdAt: string;
-  updatedAt: string;
+  message: string;
+  scheduledTime: string;
+  notificationId?: number;
 }
 
 export interface ScheduleState {
@@ -15,10 +14,13 @@ export interface ScheduleState {
 
 export interface CreateSchedulePayload {
   title: string;
-  content: string;
-  scheduledAt: string;
+  message: string;
+  scheduledTime: string;
 }
 
-export interface UpdateSchedulePayload extends Partial<CreateSchedulePayload> {
+export interface UpdateSchedulePayload {
   id: string;
+  title?: string;
+  message?: string;
+  scheduledTime?: string;
 }

@@ -1,16 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { v4 as uuidv4 } from "uuid";
 import {
   Schedule,
-  ScheduleState,
   CreateSchedulePayload,
   UpdateSchedulePayload,
-} from "@/types/schedule";
-import { v4 as uuidv4 } from "uuid";
+} from "../types/schedule";
+
+interface ScheduleState {
+  items: Schedule[];
+}
 
 const initialState: ScheduleState = {
   items: [],
-  loading: false,
-  error: null,
 };
 
 const scheduleSlice = createSlice({
@@ -21,8 +22,6 @@ const scheduleSlice = createSlice({
       const newSchedule: Schedule = {
         id: uuidv4(),
         ...action.payload,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
       };
       state.items.push(newSchedule);
     },
@@ -34,18 +33,22 @@ const scheduleSlice = createSlice({
         state.items[index] = {
           ...state.items[index],
           ...action.payload,
-          updatedAt: new Date().toISOString(),
         };
       }
     },
-    deleteSchedule: (state, action: PayloadAction<string>) => {
+    removeSchedule: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
     },
-    setLoading: (state, action: PayloadAction<boolean>) => {
-      state.loading = action.payload;
-    },
-    setError: (state, action: PayloadAction<string | null>) => {
-      state.error = action.payload;
+    setNotificationId: (
+      state,
+      action: PayloadAction<{ id: string; notificationId: number }>
+    ) => {
+      const schedule = state.items.find(
+        (item) => item.id === action.payload.id
+      );
+      if (schedule) {
+        schedule.notificationId = action.payload.notificationId;
+      }
     },
   },
 });
@@ -53,9 +56,8 @@ const scheduleSlice = createSlice({
 export const {
   addSchedule,
   updateSchedule,
-  deleteSchedule,
-  setLoading,
-  setError,
+  removeSchedule,
+  setNotificationId,
 } = scheduleSlice.actions;
 
 export default scheduleSlice.reducer;
