@@ -1,3 +1,16 @@
+export const registerServiceWorker = async (): Promise<void> => {
+  if ('serviceWorker' in navigator) {
+    try {
+      const registration = await navigator.serviceWorker.register('/service-worker.ts', {
+        scope: '/'
+      });
+      console.log('Service Worker registered:', registration);
+    } catch (error) {
+      console.error('Service Worker registration failed:', error);
+    }
+  }
+};
+
 export const requestNotificationPermission = async (): Promise<boolean> => {
   if (!("Notification" in window)) {
     console.error("This browser does not support notifications");
@@ -6,6 +19,9 @@ export const requestNotificationPermission = async (): Promise<boolean> => {
 
   try {
     const permission = await Notification.requestPermission();
+    if (permission === "granted") {
+      await registerServiceWorker();
+    }
     return permission === "granted";
   } catch (error) {
     console.error("Error requesting notification permission:", error);
