@@ -15,7 +15,7 @@ import {
 import {
   scheduleNotification,
   cancelScheduledNotification,
-} from "../utils/pushNotification";
+} from "../../src/utils/notification";
 
 export const useSchedule = () => {
   const dispatch = useDispatch();

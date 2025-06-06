@@ -1,12 +1,15 @@
 export const registerServiceWorker = async (): Promise<void> => {
-  if ('serviceWorker' in navigator) {
+  if ("serviceWorker" in navigator) {
     try {
-      const registration = await navigator.serviceWorker.register('/service-worker.ts', {
-        scope: '/'
-      });
-      console.log('Service Worker registered:', registration);
+      const registration = await navigator.serviceWorker.register(
+        "/service-worker.ts",
+        {
+          scope: "/",
+        }
+      );
+      console.log("Service Worker registered:", registration);
     } catch (error) {
-      console.error('Service Worker registration failed:', error);
+      console.error("Service Worker registration failed:", error);
     }
   }
 };
@@ -63,4 +66,12 @@ export const scheduleNotification = (
 
 export const cancelScheduledNotification = (timeoutId: number): void => {
   window.clearTimeout(timeoutId);
+};
+
+export default {
+  registerServiceWorker,
+  requestNotificationPermission,
+  sendNotification,
+  scheduleNotification,
+  cancelScheduledNotification,
 };
