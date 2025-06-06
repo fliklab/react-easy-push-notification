@@ -34,7 +34,9 @@ export const usePushNotification = (): UsePushNotificationReturn => {
   const unsubscribe = useCallback(() => {
     // 현재 Web Notification API는 권한을 취소하는 방법을 제공하지 않습니다.
     // 대신 브라우저 설정에서 수동으로 변경해야 합니다.
-    setError("브라우저 설정에서 알림 권한을 수동으로 취소해주세요.");
+    // 이 함수는 훅의 내부 상태를 업데이트하여 UI에 반영합니다.
+    setIsSubscribed(false);
+    setError(null);
   }, []);
 
   return {
