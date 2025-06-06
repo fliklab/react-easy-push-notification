@@ -5,12 +5,12 @@ self.addEventListener("install", (event: ExtendableEvent) => {
   event.waitUntil(self.skipWaiting());
 });
 
-self.addEventListener("activate", (event: any) => {
+self.addEventListener("activate", (event: ExtendableEvent) => {
   event.waitUntil(self.clients.claim());
 });
 
 // 백그라운드에서 알림 처리
-self.addEventListener("push", (event: any) => {
+self.addEventListener("push", (event: PushEvent) => {
   if (!event.data) return;
 
   const data = event.data.json();
@@ -27,7 +27,7 @@ self.addEventListener("push", (event: any) => {
 });
 
 // 알림 클릭 처리
-self.addEventListener("notificationclick", (event: any) => {
+self.addEventListener("notificationclick", (event: NotificationEvent) => {
   event.notification.close();
   event.waitUntil(clients.openWindow("/"));
 });
