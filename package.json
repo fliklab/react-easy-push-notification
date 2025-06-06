@@ -1,6 +1,15 @@
 {
-  "name": "react-easy-push",
+  "name": "@fliklab/react-push-notification",
   "version": "0.1.0",
+  "description": "Simple and easy-to-use web push notification library for React",
+  "keywords": [
+    "react",
+    "notification",
+    "push-notification",
+    "web-notification",
+    "browser-notification",
+    "web-push"
+  ],
   "private": false,
   "type": "module",
   "main": "./dist/index.js",
