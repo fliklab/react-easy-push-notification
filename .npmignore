@@ -1,0 +1,36 @@
+# Development
+node_modules/
+.husky/
+coverage/
+examples/
+src/
+tests/
+
+# Config files
+.eslintrc
+.prettierrc
+.gitignore
+rollup.config.js
+tsconfig.json
+tsconfig.node.json
+vite.config.ts
+
+# Documentation
+architecture.mdc
+tasks.mdc
+test.mdc
+
+# Editor
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# System Files
+.DS_Store
+Thumbs.db 
