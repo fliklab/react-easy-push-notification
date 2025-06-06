@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { requestNotificationPermission } from "../utils/pushNotification";
+import { requestNotificationPermission } from "../utils/notification";
 
 interface UsePushNotificationReturn {
   isSubscribed: boolean;

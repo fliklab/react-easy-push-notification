@@ -1,66 +1,43 @@
-export const registerServiceWorker = async (): Promise<void> => {
-  if ('serviceWorker' in navigator) {
-    try {
-      const registration = await navigator.serviceWorker.register('/service-worker.ts', {
-        scope: '/'
-      });
-      console.log('Service Worker registered:', registration);
-    } catch (error) {
-      console.error('Service Worker registration failed:', error);
-    }
-  }
-};
-
+/**
+ * 브라우저 알림 권한을 요청합니다.
+ * @returns {Promise<boolean>} 권한이 허용되면 true, 그렇지 않으면 false를 반환합니다.
+ */
 export const requestNotificationPermission = async (): Promise<boolean> => {
-  if (!("Notification" in window)) {
-    console.error("This browser does not support notifications");
-    return false;
-  }
-
   try {
-    const permission = await Notification.requestPermission();
-    if (permission === "granted") {
-      await registerServiceWorker();
+    if (!("Notification" in window)) {
+      console.error("이 브라우저는 알림을 지원하지 않습니다.");
+      return false;
     }
+
+    const permission = await Notification.requestPermission();
     return permission === "granted";
   } catch (error) {
-    console.error("Error requesting notification permission:", error);
+    console.error("알림 권한 요청 중 오류가 발생했습니다:", error);
     return false;
   }
 };
 
-export const sendNotification = (
+/**
+ * 푸시 알림을 표시합니다.
+ * @param {string} title - 알림 제목
+ * @param {NotificationOptions} options - 알림 옵션
+ * @returns {Promise<void>}
+ */
+export const showNotification = async (
   title: string,
   options?: NotificationOptions
-): void => {
-  if (!("Notification" in window)) {
-    console.error("This browser does not support notifications");
-    return;
-  }
-
-  if (Notification.permission === "granted") {
-    try {
-      new Notification(title, options);
-    } catch (error) {
-      console.error("Error sending notification:", error);
+): Promise<void> => {
+  try {
+    if (Notification.permission !== "granted") {
+      console.warn("알림 권한이 없습니다.");
+      return;
     }
+
+    const notification = new Notification(title, options);
+    return new Promise((resolve) => {
+      notification.onshow = () => resolve();
+    });
+  } catch (error) {
+    console.error("알림 표시 중 오류가 발생했습니다:", error);
   }
-};
-
-export const scheduleNotification = (
-  title: string,
-  scheduledTime: Date,
-  options?: NotificationOptions
-): number => {
-  const now = new Date().getTime();
-  const scheduleTime = scheduledTime.getTime();
-  const delay = Math.max(0, scheduleTime - now);
-
-  return window.setTimeout(() => {
-    sendNotification(title, options);
-  }, delay);
-};
-
-export const cancelScheduledNotification = (timeoutId: number): void => {
-  window.clearTimeout(timeoutId);
 };
