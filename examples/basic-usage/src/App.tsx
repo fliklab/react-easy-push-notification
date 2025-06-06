@@ -5,7 +5,7 @@ import { store } from "./store";
 import { theme } from "./theme";
 import { ScheduleList } from "./components/ScheduleList";
 import { ScheduleForm } from "./components/ScheduleForm";
-import { requestNotificationPermission } from "./utils/notification";
+import { requestNotificationPermission } from "../../../src/utils/notification";
 
 function App() {
   useEffect(() => {
